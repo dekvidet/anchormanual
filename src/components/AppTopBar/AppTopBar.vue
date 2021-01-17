@@ -1,7 +1,7 @@
 <template>
   <ConnectionDialog
     v-if="connectionDialog.isVisible"
-    text="http://www.google.com"
+    text="http://localhost:3000"
     @hide="hideConnectionDialog"
   />
   <Toolbar class="p-shadow-1">
@@ -28,6 +28,7 @@
 import Toolbar from 'primevue/toolbar'
 import Button from 'primevue/button'
 import ConnectionDialog from '../ConnectionDialog/ConnectionDialog.vue'
+import { sockets } from '../../services/sockets'
 
 export default {
   name: 'AppTopBar',
@@ -49,6 +50,7 @@ export default {
   },
   methods: {
     syncContents() {
+      sockets.syncer.emit('sync', this.$store.state.home.contentList.contents)
       this.$store.dispatch('home/contentList/syncContents')
     },
     showConnectionDialog() {

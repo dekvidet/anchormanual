@@ -9,12 +9,24 @@ export default {
   name: 'QrCode',
   props: ['text'],
   mounted() {
-    const canvas = document.getElementById('qr-code')
-    QRCode.toCanvas(canvas, this.text, error => {
-      if (error) {
-        console.error(error)
-      }
-    })
+    this.drawCode()
+  },
+  watch: {
+    text: {
+      handler() {
+        this.drawCode()
+      },
+    },
+  },
+  methods: {
+    drawCode() {
+      const canvas = document.getElementById('qr-code')
+      QRCode.toCanvas(canvas, this.text, error => {
+        if (error) {
+          console.error(error)
+        }
+      })
+    },
   },
 }
 </script>

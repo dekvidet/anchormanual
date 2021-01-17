@@ -14,10 +14,13 @@
   "main": "background.js",
   "dependencies": {
     "core-js": "^3.6.5",
+    "express": "^4.17.1",
     "primeflex": "^2.0.0",
     "primeicons": "^4.1.0",
     "primevue": "^3.1.1",
     "qrcode": "^1.4.4",
+    "socket.io": "^3.0.4",
+    "socket.io-client": "^3.0.4",
     "vee-validate": "^4.1.2",
     "vue": "^3.0.0",
     "vue-router": "^4.0.2",

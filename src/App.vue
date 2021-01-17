@@ -13,10 +13,15 @@ import 'primevue/resources/primevue.min.css'
 import 'primeicons/primeicons.css'
 import 'primeflex/primeflex.css'
 import AppTopBar from './components/AppTopBar/AppTopBar.vue'
+import { connect } from './services/sockets'
 
 export default {
   components: {
     AppTopBar,
+  },
+  mounted() {
+    const socket = connect('syncer')
+    socket.emit('login', 'host')
   },
 }
 </script>

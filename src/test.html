@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Üzenetek - Anchormanual</title>
+    <style>
+      body {
+        padding: 35px;
+        background-color: #fff6f9;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 30px;
+        color: #444;
+        text-shadow: 0px 1px 1px #bbbbbb;
+      }
+      .message {
+        margin-bottom: 30px;
+      }
+      .name {
+        margin-bottom: 10px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div v-for="message in messages" class="message">
+        <div class="name">{{message.name}}</div>
+        <div>{{message.comment}}</div>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+      const app = new Vue({
+        el: '#app',
+        mounted() {
+          const url = new URL(window.location.href)
+          const ip = url.searchParams.get('ip') || location.hostname
+          const port = url.searchParams.get('port') || location.port
+          const socket = io(`http://${ip}:${port}`)
+          socket.emit('login', 'client')
+          socket.on('sync', function(data){
+            console.log(data)
+            Vue.set(app, 'messages', data)
+          })
+        },
+        data() {
+          return {
+            messages: [],
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

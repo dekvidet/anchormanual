@@ -1,8 +1,13 @@
 import { app, protocol, BrowserWindow } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
+import startServer from './server'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
+
+startServer({
+  port: process.env.port || 3000,
+})
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
